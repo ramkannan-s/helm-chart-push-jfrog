@@ -31,26 +31,23 @@ jobs:
       - uses: jfrog/setup-jfrog-cli@v1
 
       # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: Install Helm and Jfrog CLI
         run: |
           sudo apt-get update -y
           sudo apt-get install curl -y
           curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: sudo curl -fL https://getcli.jfrog.io | sh
+          sudo curl -fL https://getcli.jfrog.io | sh
 
       # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: Connect to Jfrog Artifactory using Jfrog CLI
         run: |
-          ./jfrog rt config --url=$ARTIFACTORY_URL --user=$ARTIFACTORY_USER --password=$ARTIFACTORY_PASS
-          ./jfrog rt c show
+          ./jfrog config --url=$ARTIFACTORY_URL --user=$ARTIFACTORY_USER --password=$ARTIFACTORY_PASS
+          ./jfrog c show
 
-      - name: Run a one-line script
+      - name: Package HELM Chart and Add the artifactory repo
         run: |
           helm package hello-nginx
           helm repo add slipway-helm ${ARTIFACTORY_URL} --username admin --password AP4mMt76rJ2AmCg6qxphfF6Jocr
         
-      - name: Run a one-line script
-        run: jf rt u "(*).tgz" $ARTIFACTORY_URL/helm-nginx-1.0.${{ github.run_id }} --recursive=false
+      - name: Upload helm package to artifactory using jf cmd
+        run: jf u "(*).tgz" $ARTIFACTORY_URL/helm-nginx-1.0.${{ github.run_id }} --recursive=false
