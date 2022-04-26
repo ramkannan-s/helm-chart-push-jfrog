@@ -44,6 +44,7 @@ jobs:
           ./jfrog c add --url=$ARTIFACTORY_URL --user=$ARTIFACTORY_USER --password=$ARTIFACTORY_PASS
           ./jfrog c show
 
+      - uses: actions/checkout@v3
       - name: Package HELM Chart and Add the artifactory repo
         run: |
           helm package hello-nginx
