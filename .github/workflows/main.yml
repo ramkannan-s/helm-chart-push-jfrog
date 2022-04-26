@@ -3,7 +3,7 @@
 name: CI
 
 env:
-  ARTIFACTORY_URL: http://34.100.254.109/artifactory/api/helm/slipway-helm
+  ARTIFACTORY_URL: http://34.100.254.109
   ARTIFACTORY_USER: admin
   ARTIFACTORY_PASS: ${{ secrets.JFROG_HTTP_PASSWORD }}
 
@@ -47,7 +47,7 @@ jobs:
       - name: Package HELM Chart and Add the artifactory repo
         run: |
           helm package hello-nginx
-          helm repo add slipway-helm ${ARTIFACTORY_URL} --username admin --password $ARTIFACTORY_PASS
+          helm repo add slipway-helm ${ARTIFACTORY_URL}/artifactory/api/helm/slipway-helm --username admin --password $ARTIFACTORY_PASS
         
       - name: Upload helm package to artifactory using jf cmd
-        run: jf u "(*).tgz" $ARTIFACTORY_URL/helm-nginx-1.0.${{ github.run_id }} --recursive=false
+        run: jf u "(*).tgz" $ARTIFACTORY_URL/artifactory/api/helm/slipway-helm/helm-nginx-1.0.${{ github.run_id }} --recursive=false
