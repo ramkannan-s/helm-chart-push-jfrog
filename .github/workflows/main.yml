@@ -49,5 +49,8 @@ jobs:
           ./jfrog c add --url=$ARTIFACTORY_URL --user=$ARTIFACTORY_USER --password=$ARTIFACTORY_PASS
           ./jfrog c show
 
+      - name: Check files present
+        run: ls
+
       - name: Upload helm package to artifactory using jf cmd
         run: ./jfrog rt u "(*).tgz" $ARTIFACTORY_URL/artifactory/api/helm/slipway-helm/helm-nginx-1.0.${{ github.run_id }} --recursive=false
