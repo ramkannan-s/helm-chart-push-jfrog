@@ -41,8 +41,8 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Connect to Jfrog Artifactory using Jfrog CLI
         run: |
-          jf c add --url=$ARTIFACTORY_URL --user=$ARTIFACTORY_USER --password=$ARTIFACTORY_PASS
-          jf c show
+          ./jfrog c add --url=$ARTIFACTORY_URL --user=$ARTIFACTORY_USER --password=$ARTIFACTORY_PASS
+          ./jfrog c show
 
       - name: Package HELM Chart and Add the artifactory repo
         run: |
