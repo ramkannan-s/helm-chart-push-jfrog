@@ -51,4 +51,4 @@ jobs:
           helm repo add slipway-helm ${ARTIFACTORY_URL}/artifactory/api/helm/slipway-helm --username admin --password $ARTIFACTORY_PASS
         
       - name: Upload helm package to artifactory using jf cmd
-        run: jf u "(*).tgz" $ARTIFACTORY_URL/artifactory/api/helm/slipway-helm/helm-nginx-1.0.${{ github.run_id }} --recursive=false
+        run: ./jfrog u "(*).tgz" $ARTIFACTORY_URL/artifactory/api/helm/slipway-helm/helm-nginx-1.0.${{ github.run_id }} --recursive=false
