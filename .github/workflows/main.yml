@@ -50,4 +50,4 @@ jobs:
           ./jfrog c show
 
       - name: Upload helm package to artifactory using jf cmd
-        run: ./jfrog rt u "helm-nginx-1.0.1.tgz" slipway-helm/helm-nginx-1.0.${{ github.run_id }} --recursive=false
+        run: ./jfrog rt u "helm-nginx-1.0.1.tgz" slipway-helm/helm-nginx-1.0.${{ github.run_id }}.tgz --recursive=false
